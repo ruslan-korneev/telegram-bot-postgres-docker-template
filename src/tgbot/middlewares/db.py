@@ -6,5 +6,5 @@ class DbMiddleware(LifetimeControllerMiddleware):
 
     async def pre_process(self, obj, data, *args):
         db_session = obj.bot.get('db')
-        # Передаем данные из таблицы в хендлер
+        # Get data from table to handler
         # data['some_model'] = await Model.get()

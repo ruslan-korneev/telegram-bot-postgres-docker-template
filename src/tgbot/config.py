@@ -43,17 +43,13 @@ class Config:
 def load_config() -> Config:
     """ load config with telegram-bot, database and extra fields """
     return Config(
-        tg_bot=TgBot(
-            token=BOT_TOKEN,
-            admin_ids=ADMINS,
-            use_redis=USE_REDIS,
-        ),
+        tg_bot=TgBot(token=BOT_TOKEN, admin_ids=ADMINS, use_redis=USE_REDIS),
+        misc=Miscellaneous(),
         db=DbConfig(
             database=POSTGRES_DB,
             user=POSTGRES_USER,
             password=POSTGRES_PASS,
             host="db",
             port=5432,
-        ),
-        misc=Miscellaneous()
+        )
     )
