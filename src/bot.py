@@ -3,8 +3,6 @@ import logging
 
 from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage import memory, redis
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from aiogram.contrib.fsm_storage.redis import RedisStorage2
 
 from tgbot.config import load_config
 from tgbot.filters.admin import AdminFilter
@@ -39,7 +37,7 @@ async def main():
     logger.info("Starting bot")
     config = load_config()
 
-    storage = RedisStorage2() if config.tg_bot.use_redis else memory.MemoryStorage()
+    storage = redis.RedisStorage2() if config.tg_bot.use_redis else memory.MemoryStorage()
     bot = Bot(token=config.tg_bot.token, parse_mode='HTML')
     dp = Dispatcher(bot, storage=storage)
 
