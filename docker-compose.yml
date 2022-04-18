@@ -2,22 +2,35 @@ version: '3.3'
 
 services:
   bot:
-    image: "${BOT_IMAGE_NAME:-tg_bot-image}"
-    container_name: "${BOT_CONTAINER_NAME:-tg_bot-container}"
+    image: python:3.9
+    container_name: spbu-news-bot
     stop_signal: SIGINT
     build:
       context: .
     working_dir: "/usr/src/app/${BOT_NAME:-tg_bot}"
     volumes:
-    - .:/usr/src/app/${BOT_NAME:-tg_bot}
-    command: python3 -m bot
+      - .:/usr/src/app/${BOT_NAME:-tg_bot}
+    command: python3 src/bot.py
     restart: always
-    env_file:
-      - ".env"
+    depends_on:
+      - db
+    env_file: .env
     networks:
-    - tg_bot
+      - tg_bot
 
+  db:
+    image: postgres:12.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+    container_name: spbu-news-db
+    env_file: .env
+    ports:
+      - 5432:5432
 
 networks:
   tg_bot:
     driver: bridge
+
+volumes:
+  postgres_data:

@@ -8,7 +8,7 @@ from tgbot.config import Config
 class AdminFilter(BoundFilter):
     key = 'is_admin'
 
-    def __init__(self, is_admin: typing.Optional[bool] = None):
+    def __init__(self, is_admin: typing.Optional[bool] = None) -> bool:
         self.is_admin = is_admin
 
     async def check(self, obj):

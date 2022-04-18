@@ -15,15 +15,15 @@ from tgbot.middlewares.db import DbMiddleware
 logger = logging.getLogger(__name__)
 
 
-def register_all_middlewares(dp):
+def register_all_middlewares(dp: Dispatcher):
     dp.setup_middleware(DbMiddleware())
 
 
-def register_all_filters(dp):
+def register_all_filters(dp: Dispatcher):
     dp.filters_factory.bind(AdminFilter)
 
 
-def register_all_handlers(dp):
+def register_all_handlers(dp: Dispatcher):
     register_admin(dp)
     register_user(dp)
 
@@ -36,7 +36,7 @@ async def main():
         format=u'%(filename)s:%(lineno)d #%(levelname)-8s [%(asctime)s] - %(name)s - %(message)s',
     )
     logger.info("Starting bot")
-    config = load_config(".env")
+    config = load_config()
 
     storage = RedisStorage2() if config.tg_bot.use_redis else MemoryStorage()
     bot = Bot(token=config.tg_bot.token, parse_mode='HTML')

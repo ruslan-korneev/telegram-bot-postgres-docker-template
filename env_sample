@@ -1,0 +1,8 @@
+BOT_NAME=mybotname
+BOT_TOKEN=123456:Your-TokEn_ExaMple
+ADMINS=123456,654321
+USE_REDIS=False
+
+POSTGRES_DB=exampleDBName
+POSTGRES_USER=exampleDBUserName
+POSTGRES_PASSWORD=exampleDBPassword
