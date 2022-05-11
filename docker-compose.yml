@@ -4,7 +4,6 @@ services:
   bot:
     image: python:3.9
     container_name: ${PROJECT_NAME}-bot
-    stop_signal: SIGINT
     build:
       context: .
     working_dir: "/usr/src/app/${BOT_NAME:-tg_bot}"
@@ -15,8 +14,6 @@ services:
     depends_on:
       - db
     env_file: .env
-    networks:
-      - tg_bot
 
   db:
     image: postgres:12.0-alpine
@@ -26,11 +23,18 @@ services:
     container_name: ${PROJECT_NAME}-db
     env_file: .env
     ports:
-      - 5432:5432
+      - 5433:5432
 
-networks:
-  tg_bot:
-    driver: bridge
+  redis:
+    image: redis:6.2-alpine
+    container_name: ${PROJECT_NAME}-redis
+    restart: always
+    ports:
+      - 6380:6379
+    command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
 
 volumes:
   postgres_data:
+  redis_data:

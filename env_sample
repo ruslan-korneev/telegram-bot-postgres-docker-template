@@ -11,3 +11,8 @@ POSTGRES_PASSWORD=password
 
 # DOCKER
 PROJECT_NAME=template
+
+# REDIS
+REDIS_HOST=cache
+REDIS_PORT=6379
+REDIS_PASSWORD=somesuperhardpassword
