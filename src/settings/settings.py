@@ -21,9 +21,9 @@ REDIS_PASSWORD = os.environ.get('REDIS_PASSWORD')
 
 # Backend Settings
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'django-insecure-%^fme2$yxkavj8%ykvlt2c&ool-4@ou%o#nx9stik+#0k=o$t_'
-DEBUG = True
-ALLOWED_HOSTS = ['*']
+SECRET_KEY = os.environ.get("SECRET_KEY", "super30r2jsecretjfi02keyfj-")
+DEBUG = bool(os.environ.get("DEBUG"))
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(',')
 
 # Application definition
 INSTALLED_APPS = [
