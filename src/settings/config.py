@@ -1,7 +1,7 @@
 from aiogram import Dispatcher
 
+from settings import settings as consts
 from settings.data import CacheConfig, Config, TgBot, Miscellaneous
-from settings.consts import BOT_TOKEN, ADMINS, REDIS_HOST, REDIS_PORT, REDIS_PASSWORD
 from tgbot.filters.admin import AdminFilter
 from tgbot.handlers.admin import register_admin
 from tgbot.handlers.echo import register_echo
@@ -33,12 +33,12 @@ def load_config() -> Config:
     """ load config with telegram-bot, database and extra fields """
     return Config(
         tg_bot=TgBot(
-            token=BOT_TOKEN, admin_ids=ADMINS
+            token=consts.BOT_TOKEN, admin_ids=consts.ADMINS
         ),
         cache_config=CacheConfig(
-            host=REDIS_HOST,
-            port=REDIS_PORT,
-            password=REDIS_PASSWORD
+            host=consts.REDIS_HOST,
+            port=consts.REDIS_PORT,
+            password=consts.REDIS_PASSWORD
         ),
         misc=Miscellaneous()
     )

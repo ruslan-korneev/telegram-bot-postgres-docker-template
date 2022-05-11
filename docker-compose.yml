@@ -5,6 +5,7 @@ services:
     image: python:3.9
     container_name: ${PROJECT_NAME}-bot
     build:
+      dockerfile: Dockerfile.bot
       context: .
     working_dir: "/usr/src/app/${BOT_NAME:-tg_bot}"
     volumes:
@@ -13,6 +14,26 @@ services:
     restart: always
     depends_on:
       - db
+      - redis
+      - web
+    env_file: .env
+
+  web:
+    image: python:3.9
+    container_name: ${PROJECT_NAME}-web
+    build:
+      dockerfile: Dockerfile.web
+      context: .
+    working_dir: "/usr/src/app/${PROJECT_NAME:-web}"
+    volumes:
+      - .:/usr/src/app/${PROJECT_NAME:-web}
+    command: python3 src/manage.py runserver
+    ports:
+      - 8050:8000
+    restart: always
+    depends_on:
+      - db
+      - redis
     env_file: .env
 
   db:
